@@ -1,0 +1,27 @@
+
+theme = Horizon
+cursor-color = #29d398
+cursor-text = #1c1e26
+cursor-style-blink = true
+
+copy-on-select = true
+mouse-shift-capture = false
+
+font-family = "JetBrainsMono NF SemiBold" 
+font-size = 14
+
+background = #1a1919
+background-opacity = 0.9
+
+#fullscreen = true
+maximize = true
+window-decoration = false
+window-padding-x = 2
+window-padding-y = 2
+window-step-resize = false
+
+confirm-close-surface = false
+
+command = tmux new-session -A -s main
+
+custom-shader = ~/.config/ghostty/shaders/shader.glsl
