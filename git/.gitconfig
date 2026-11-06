@@ -1,7 +1,3 @@
 [user]
 	email = phuwadonz71@gmail.com
 	name = pwwddx
-[safe]
-	directory = /tools/Xilinx/Vivado/2023.2/bin/rubid
-	directory = /tools/Xilinx/Vivado/2023.2/bin/rubid_v2
-	directory = /tools/Xilinx/Vivado/2023.2/bin/today/rubid

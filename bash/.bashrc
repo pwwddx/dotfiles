@@ -120,7 +120,6 @@ fi
 
 export EDITOR='nvim'
 
-
 alias cc='g++ -std=c++23 -O2 -Wall -Wextra -Wshadow -D_GLIBCXX_DEBUG -Wconversion'
 export PATH="$HOME/vcpkg:$PATH"
 
@@ -137,6 +136,7 @@ if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
     exit
 fi
 
+# Yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -145,6 +145,11 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Ghostty ssh-integration
+if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
+    builtin source "$GHOSTTY_RESOURCES_DIR/shell-integration/bash/ghostty.bash"
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
