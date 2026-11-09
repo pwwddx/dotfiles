@@ -8,6 +8,7 @@ local options = {
     assembly = { "asmfmt" },
     sql = { "sql-formatter" },
     python = { "ruff_format" },
+    -- java = { "google-java-format" },
   },
 
   format_on_save = {

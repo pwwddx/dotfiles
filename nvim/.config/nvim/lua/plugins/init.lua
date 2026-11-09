@@ -122,6 +122,107 @@ return {
     },
   },
 
+  -- Java: jdtls with extras (debug, tests, refactor)
+  { "mfussenegger/nvim-jdtls", ft = "java" },
+
+  -- Debugger
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "jay-babu/mason-nvim-dap.nvim", -- auto-setup debuggers installed by Mason
+    },
+    keys = {
+      {
+        "<F5>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Debug: start/continue",
+      },
+      {
+        "<F10>",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Debug: step over",
+      },
+      {
+        "<F11>",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "Debug: step into",
+      },
+      {
+        "<F12>",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Debug: step out",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Debug: toggle breakpoint",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Debug: continue",
+      },
+      {
+        "<leader>dq",
+        function()
+          require("dap").terminate()
+        end,
+        desc = "Debug: stop",
+      },
+      {
+        "<leader>du",
+        function()
+          require("dapui").toggle()
+        end,
+        desc = "Debug: toggle UI",
+      },
+    },
+    config = function()
+      local dap, dapui = require "dap", require "dapui"
+
+      -- Debuggers for other languages (Java is handled by ftplugin/java.lua + nvim-jdtls)
+      require("mason-nvim-dap").setup {
+        ensure_installed = { "python", "codelldb" }, -- Python (debugpy), C/C++ (codelldb)
+        automatic_installation = false,
+        handlers = {
+          function(config) -- default: set up every Mason-installed debugger
+            require("mason-nvim-dap").default_setup(config)
+          end,
+          javadbg = function() end, -- skip Java: nvim-jdtls already handles it
+        },
+      }
+
+      dapui.setup()
+      -- open/close the UI automatically
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+    end,
+  },
+
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
   -- {
